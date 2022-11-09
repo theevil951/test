@@ -1,0 +1,219 @@
+<!--Employees-->
+<div class="container">
+    <br>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Employees : </h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <div class="input-group">
+                        <input type="text" class="form-control" [(ngModel)]="searchInput" placeholder="Search : ">
+                        <span class="input-group-btn">
+                        <button class="btn btn-default" (click)="searchEmps()">
+                            <span class="glyphicon glyphicon-search"></span> Search</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        <br>
+
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>FirstName</th>
+                    </tr>
+                </thead>
+                <!-- List -->
+                <tbody *ngIf="!search">
+                    <tr *ngFor="let employee of employees">
+                        <td>{{employee.id}}</td>
+                        <td>{{employee.firstname}}
+                            <button class="btn btn-default btn-sm" (click)="getDetails(employee)">Details</button>
+                            <!-- <button class="btn btn-danger btn-sm" (click)="delete(employee.index())">Delete</button> -->
+                        </td>
+                    </tr>
+                    <!--Search Result -->
+                <tbody *ngIf="search">
+                    <tr *ngFor="let employee of employeeList">
+                        <td>{{employee.id}}</td>
+                        <td>
+                            {{employee.firstname}}
+                            <button class="btn btn-default btn-sm" (click)="getDetails(employee)">Details</button>
+                            <!-- <button class="btn btn-danger btn-sm" (click)="delete(employee)">Delete</button> -->
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Employee Details  -->
+<div *ngIf="selectedEmployee">
+
+    <div class="container">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Employee Details</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered table-hover">
+                    <caption> {{selectedEmployee.firstname + " " + selectedEmployee.lastname + "'s"}} Details :
+                    </caption>
+
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>FirstName</th>
+                            <th>LastName</th>
+                            <th>PhoneNumber</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{selectedEmployee.id}}</td>
+                            <td>{{selectedEmployee.firstname}} </td>
+                            <td>{{selectedEmployee.lastname}}</td>
+                            <td>{{selectedEmployee.phone}}</td>
+                        </tr>
+                    </tbody>
+
+                </table>
+                <button class="btn btn-danger btn-sm" (click)="delete(selectedEmployee)"> Delete</button>
+
+                <!-- <label>Edit First Name :</label>
+                <input type="text" [(ngModel)]="selectedEmployee.firstname">
+                <label>Edit Last Name :</label>
+                <input type="text" [(ngModel)]="selectedEmployee.lastname"> -->
+                <hr>
+                <div class="row">
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="" for="">Edit First Name:</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="First Name: "
+                                [(ngModel)]="firstname">
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="" for="">Edit Last Name:</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Last Name:"
+                                [(ngModel)]="lastname">
+                        </div>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <label class="" for="">Edit Phone Number:</label>
+                            <input type="text" class="form-control" id="phoneNumber" placeholder="Phone Number: "
+                                [(ngModel)]="number">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                        <button class="btn btn-success btn-sm" (click)="update(selectedEmployee)"> Update</button>
+                    </div>
+                    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                    </div>
+                    <button class="btn btn-default" (click)="closeDetails()"> Close </button>
+                    <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+
+                    </div>
+
+                </div>
+
+
+
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Entry -->
+<div class="container" *ngIf="!selectedEmployee">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">Entry :</h3>
+        </div>
+        <div class="panel-body">
+
+
+
+
+            <div class="row">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="form-group">
+                        <label class="" for="">ID:</label>
+                        <input type="text" class="form-control" id="ID" placeholder="ID: " [(ngModel)]="id">
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="form-group">
+                        <label class="" for="">First Name:</label>
+                        <input type="text" class="form-control" id="firstName" placeholder="First Name: "
+                            [(ngModel)]="firstname">
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="form-group">
+                        <label class="" for="">Last Name:</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Last Name:"
+                            [(ngModel)]="lastname">
+                    </div>
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <div class="form-group">
+                        <label class="" for="">Phone Number:</label>
+                        <input type="text" class="form-control" id="phoneNumber" placeholder="Phone Number: "
+                            [(ngModel)]="number">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <button type="button" class="btn btn-primary btn-block" (click)="insertEmployee()"> Submit </button>
+
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+
+
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+</div>
